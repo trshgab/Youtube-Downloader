@@ -7,11 +7,18 @@ import threading
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 
+class Settings:
+    def __init__(self):
+        self.download_folder = os.path.expanduser("~")
+        self.show_speed = False
+
 class YouTubeDownloaderApp:
     def __init__(self, root):
         self.root = root
         self.root.title("YouTube Downloader")
         self.style = ttk.Style('cosmo')  # Tema inicial, cambiará con modo oscuro
+
+        self.settings = Settings()  # Instancia de las configuraciones
 
         # Configuración de la ventana principal
         self.main_frame = ttk.Frame(root, padding=10)
@@ -39,6 +46,9 @@ class YouTubeDownloaderApp:
         self.progress = ttk.Progressbar(self.main_frame, orient="horizontal", length=300, mode="determinate")
         self.progress.pack(pady=10)
 
+        self.speed_label = ttk.Label(self.main_frame, text="", bootstyle=INFO)
+        self.speed_label.pack(pady=5)
+
         # Botón de modo oscuro
         self.dark_mode_button = ttk.Button(self.main_frame, text="Modo Oscuro", command=self.toggle_dark_mode, bootstyle=INFO)
         self.dark_mode_button.pack(pady=5)
@@ -58,7 +68,7 @@ class YouTubeDownloaderApp:
             messagebox.showerror("Error", "Por favor, ingresa una URL de YouTube.")
             return
 
-        download_path = filedialog.askdirectory()
+        download_path = self.settings.download_folder
         if not download_path:
             return
 
@@ -89,6 +99,11 @@ class YouTubeDownloaderApp:
         self.progress['value'] = percentage
         self.root.update_idletasks()
 
+        if self.settings.show_speed:
+            speed = bytes_downloaded / (request.time.time() - stream._start_time)
+            speed_text = f"Velocidad de descarga: {speed / 1024:.2f} KB/s"
+            self.speed_label.config(text=speed_text)
+
     def toggle_dark_mode(self):
         if self.style.theme_use() == 'cosmo':
             self.style.theme_use('darkly')
@@ -98,9 +113,30 @@ class YouTubeDownloaderApp:
     def open_settings(self):
         settings_window = tk.Toplevel(self.root)
         settings_window.title("Opciones")
-        settings_window.geometry("300x200")
+        settings_window.geometry("400x300")
 
-        ttk.Label(settings_window, text="Ajustes futuros...").pack(pady=20)
+        ttk.Label(settings_window, text="Carpeta de descargas:").pack(pady=10)
+        self.download_folder_var = tk.StringVar(value=self.settings.download_folder)
+        download_folder_entry = ttk.Entry(settings_window, textvariable=self.download_folder_var, width=40)
+        download_folder_entry.pack(pady=5)
+
+        ttk.Button(settings_window, text="Seleccionar carpeta", command=self.select_download_folder).pack(pady=5)
+
+        self.show_speed_var = tk.BooleanVar(value=self.settings.show_speed)
+        show_speed_check = ttk.Checkbutton(settings_window, text="Mostrar velocidad de descarga", variable=self.show_speed_var)
+        show_speed_check.pack(pady=10)
+
+        ttk.Button(settings_window, text="Guardar", command=self.save_settings, bootstyle=SUCCESS).pack(pady=20)
+
+    def select_download_folder(self):
+        folder = filedialog.askdirectory()
+        if folder:
+            self.download_folder_var.set(folder)
+
+    def save_settings(self):
+        self.settings.download_folder = self.download_folder_var.get()
+        self.settings.show_speed = self.show_speed_var.get()
+        messagebox.showinfo("Opciones", "Configuraciones guardadas correctamente.")
 
 if __name__ == "__main__":
     root = ttk.Window(themename='cosmo')
