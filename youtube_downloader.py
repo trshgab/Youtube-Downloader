@@ -41,11 +41,3 @@ def convertir_a_mp3(ruta_audio, ruta_mp3):
         print(f"Error al convertir a MP3: {e}")
         raise e
 
-def obtener_nombre_archivo_unico(path, nombre_archivo):
-    base, ext = os.path.splitext(nombre_archivo)
-    nuevo_nombre_archivo = nombre_archivo
-    contador = 1
-    while os.path.exists(os.path.join(path, nuevo_nombre_archivo)):
-        nuevo_nombre_archivo = f"{base} ({contador}){ext}"
-        contador += 1
-    return nuevo_nombre_archivo

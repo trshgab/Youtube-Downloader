@@ -2,7 +2,7 @@ import shutil
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 import os
-from youtube_downloader import descargar_video, convertir_a_mp3, descargar_audio, obtener_nombre_archivo_unico
+from youtube_downloader import descargar_video, convertir_a_mp3, descargar_audio
 import threading
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
@@ -86,8 +86,7 @@ class YouTubeDownloaderApp:
                 messagebox.showerror("Error", f"Error al descargar el audio: {error}")
                 return
             nombre_archivo_mp3 = os.path.splitext(os.path.basename(ruta_audio))[0] + '.mp3'
-            nombre_archivo_mp3_unico = obtener_nombre_archivo_unico(download_path, nombre_archivo_mp3)
-            ruta_mp3 = os.path.join(download_path, nombre_archivo_mp3_unico)
+            ruta_mp3 = os.path.join(download_path)
             try:
                 convertir_a_mp3(ruta_audio, ruta_mp3)
                 messagebox.showinfo("Éxito", f"Descarga completada: {ruta_mp3}")
@@ -103,8 +102,7 @@ class YouTubeDownloaderApp:
                 return
 
             nombre_archivo_mp4 = os.path.basename(ruta_video)
-            nombre_archivo_mp4_unico = obtener_nombre_archivo_unico(download_path, nombre_archivo_mp4)
-            ruta_mp4 = os.path.join(download_path, nombre_archivo_mp4_unico)
+            ruta_mp4 = os.path.join(download_path, nombre_archivo_mp4)
 
             try:
                 shutil.move(ruta_video, ruta_mp4)
