@@ -1,6 +1,6 @@
 # YouTube Downloader
 
-**Versión:** 1.0.0-rc
+**Versión:** 1.1.0-rc
 
 ## Descripción
 
@@ -8,8 +8,9 @@ YouTube Downloader es una aplicación sencilla y eficiente para descargar videos
 
 ## Características
 
-- **Descarga de Videos**: Descarga videos de YouTube en formato MP4 con la más alta resolución disponible.
+- **Descarga de Videos**: Descarga videos de YouTube en formato MP4 *(solo 360p disponible por ahora)*.
 - **Descarga de Audios**: Extrae y descarga solo el audio de los videos de YouTube en formato MP3.
+- **Descarga de Playlists**: Descarga playlists enteras de YouTube en formato MP4 o MP3.
 
 
 ## Requisitos
