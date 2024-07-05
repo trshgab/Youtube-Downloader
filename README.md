@@ -11,7 +11,12 @@ YouTube Downloader es una aplicación sencilla y eficiente para descargar videos
 - **Descarga de Videos**: Descarga videos de YouTube en formato MP4 *(solo 360p disponible por ahora)*.
 - **Descarga de Audios**: Extrae y descarga solo el audio de los videos de YouTube en formato MP3.
 - **Descarga de Playlists**: Descarga playlists enteras de YouTube en formato MP4 o MP3.
-
+- **Modo Oscuro**: Interfaz con modo oscuro para una experiencia de usuario más agradable.
+- **Validación de URL**: Verifica que las URLs ingresadas sean válidas.
+- **Barra de Progreso**: Muestra el progreso de la descarga con un porcentaje dentro de la barra.
+- **Configuración de Carpeta de Descarga**: Permite configurar la carpeta de descarga y la guarda para futuras descargas.
+- **Velocidad de Descarga**: Muestra la velocidad de descarga si está habilitada en el menú de configuración.
+- **Manejo de Errores Mejorado**: Mejora la gestión de errores para una experiencia más robusta.
 
 ## Requisitos
 
@@ -35,7 +40,7 @@ YouTube Downloader es una aplicación sencilla y eficiente para descargar videos
 
 1. Ejecuta el programa:
     ```bash
-    python gui_youtube_downloader.py
+    python3 gui_youtube_downloader.py
     ```
 
 2. Ingresa la URL del video de YouTube que deseas descargar.
@@ -55,4 +60,4 @@ Email: gmrgabo@gmail.com
 
 ---
 
-¡Gracias por usar YouTube Downloader! Espero que te sea util.
+¡Gracias por usar YouTube Downloader! Espero que te sea útil.
